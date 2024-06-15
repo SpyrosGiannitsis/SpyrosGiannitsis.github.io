@@ -25,7 +25,37 @@
         <input type="radio" id="7-days" name="forecast-duration" value="5">
         <label for="7-days">Next 5 days</label><br>
 
-        <button onclick="getWeather()" class="get-weather-button">Get Weather</button>
+           <button onclick="getWeather()" style="background-color: #4CAF50; /* Green */
+                                    border: none;
+                                    color: white;
+                                    padding: 10px 20px;
+                                    text-align: center;
+                                    text-decoration: none;
+                                    display: inline-block;
+                                    font-size: 16px;
+                                    margin: 4px 2px;
+                                    transition-duration: 0.4s;
+                                    cursor: pointer;
+                                    border-radius: 10px;">
+    Get Weather
+</button>
+
+
+
+<button onclick="clearPage()" style="background-color: #8c2323; /* Red */  
+                                        border: none;
+                                        color: white;
+                                        padding: 10px 20px;
+                                        text-align: center;
+                                        text-decoration: none;
+                                        display: inline-block;
+                                        font-size: 16px;
+                                        margin: 4px 2px;
+                                        transition-duration: 0.4s;
+                                        cursor: pointer;
+                                        border-radius: 10px;">
+    Clear Page
+    </button>
 
         <div id="map"></div>
         

@@ -67,8 +67,8 @@ button {
 
 .modal {
     display: none;
-    position: relative;
-    z-index: 100;
+    position: fixed;
+    z-index: 101;
     left: 0;
     top: 0;
     width: 100%;

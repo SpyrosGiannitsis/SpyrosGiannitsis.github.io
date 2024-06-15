@@ -144,6 +144,22 @@ function displayWeatherInfo(data, duration) {
             },
         }
     });
+    function showHelp() {
+    const modal = document.getElementById('help-modal');
+    modal.style.display = 'block';
+}
+
+function closeHelp() {
+    const modal = document.getElementById('help-modal');
+    modal.style.display = 'none';
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('help-modal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+}
 
     const windSpeedCtx = document.getElementById('wind-speed-chart').getContext('2d');
     windSpeedChart = new Chart(windSpeedCtx, {

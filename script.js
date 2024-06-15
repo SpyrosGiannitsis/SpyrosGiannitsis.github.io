@@ -14,6 +14,7 @@ function getWeather() {
     document.getElementById('loading').style.display = 'block';
 
     if (city.trim() === "") {
+        // If no city is entered, use the user's current location
         navigator.geolocation.getCurrentPosition(position => {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
@@ -23,6 +24,7 @@ function getWeather() {
             document.getElementById('loading').style.display = 'none';
         });
     } else {
+        // If a city is entered, use the geocoding API to get its coordinates
         fetch(`${geocodingApiUrl}?q=${city},Greece&limit=1&appid=${geocodingApiKey}`)
             .then(response => response.json())
             .then(data => {
@@ -54,10 +56,12 @@ function fetchWeatherData(lat, lon, duration) {
 }
 
 function displayWeatherInfo(data, duration) {
+    // Remove previous map
     if (map) {
         map.remove();
     }
 
+    // Create and display map
     map = L.map('map').setView([data.city.coord.lat, data.city.coord.lon], 10);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -65,11 +69,6 @@ function displayWeatherInfo(data, duration) {
     L.marker([data.city.coord.lat, data.city.coord.lon]).addTo(map)
         .bindPopup('Your location')
         .openPopup();
-
-    map.on('click', function(e) {
-        const { lat, lng } = e.latlng;
-        fetchWeatherData(lat, lng, duration);
-    });
 
     const weatherData = data.list.filter(entry => {
         const entryDate = new Date(entry.dt_txt);
@@ -142,24 +141,8 @@ function displayWeatherInfo(data, duration) {
                     beginAtZero: false
                 }
             },
-        }
+         }
     });
-    function showHelp() {
-    const modal = document.getElementById('help-modal');
-    modal.style.display = 'block';
-}
-
-function closeHelp() {
-    const modal = document.getElementById('help-modal');
-    modal.style.display = 'none';
-}
-
-window.onclick = function(event) {
-    const modal = document.getElementById('help-modal');
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
-}
 
     const windSpeedCtx = document.getElementById('wind-speed-chart').getContext('2d');
     windSpeedChart = new Chart(windSpeedCtx, {
@@ -184,4 +167,19 @@ window.onclick = function(event) {
             }
         }
     });
+}
+
+function showHelp() {
+    document.getElementById('helpModal').style.display = 'block';
+}
+
+function closeHelp() {
+    document.getElementById('helpModal').style.display = 'none';
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('helpModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
 }

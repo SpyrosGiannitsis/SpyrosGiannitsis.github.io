@@ -168,7 +168,25 @@ function displayWeatherInfo(data, duration) {
         }
     });
 }
+function clearPage() {//Συναρτηση που "καθαριζει" τον χαρτη.
+                document.getElementById('city-input').value = '';
+                document.querySelector('input[name="forecast-duration"]:checked').checked = false;
+                
+                if (map) {
+                    map.remove();
+                    map = null;
+                }
+                
+                if (temperatureChart) {
+                    temperatureChart.destroy();
+                }
+                if (windSpeedChart) {
+                    windSpeedChart.destroy();
+                }
 
+                document.getElementById('temperature-chart').getContext('2d').clearRect(0, 0, 800, 400);
+                document.getElementById('wind-speed-chart').getContext('2d').clearRect(0, 0, 800, 400);
+            }
 function showHelp() {
     document.getElementById('helpModal').style.display = 'block';
 }

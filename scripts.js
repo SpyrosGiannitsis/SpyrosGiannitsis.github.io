@@ -14,7 +14,6 @@ function getWeather() {
     document.getElementById('loading').style.display = 'block';
 
     if (city.trim() === "") {
-        // If no city is entered, use the user's current location
         navigator.geolocation.getCurrentPosition(position => {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
@@ -24,7 +23,6 @@ function getWeather() {
             document.getElementById('loading').style.display = 'none';
         });
     } else {
-        // If a city is entered, use the geocoding API to get its coordinates
         fetch(`${geocodingApiUrl}?q=${city},Greece&limit=1&appid=${geocodingApiKey}`)
             .then(response => response.json())
             .then(data => {
@@ -56,12 +54,10 @@ function fetchWeatherData(lat, lon, duration) {
 }
 
 function displayWeatherInfo(data, duration) {
-    // Remove previous map
     if (map) {
         map.remove();
     }
 
-    // Create and display map
     map = L.map('map').setView([data.city.coord.lat, data.city.coord.lon], 10);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -168,7 +164,7 @@ function displayWeatherInfo(data, duration) {
         }
     });
 }
-function clearPage() {//Συναρτηση που "καθαριζει" τον χαρτη.
+function clearPage() {
                 document.getElementById('city-input').value = '';
                 document.querySelector('input[name="forecast-duration"]:checked').checked = false;
                 
